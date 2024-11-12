@@ -1,0 +1,11 @@
+ENTER THE DATABASE
+\c database_name
+
+ALL TABLES IN DATABASE
+\dt
+
+DELETE ALL ROWS FROM TABLE
+delete from table_name;
+
+RESET SERIAL COUNTER
+ALTER SEQUENCE table_name_id_seq RESTART WITH 1;
