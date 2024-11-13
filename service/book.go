@@ -158,8 +158,13 @@ func (s *BookServiceStruct) DeleteBook(ctx context.Context, bookId int) error {
 
 	funcName := bookService + "DeleteBook"
 
+	err := s.bookExists(ctx, bookId)
+	if err != nil {
+		return er.Wrap(funcName, err)
+	}
+
 	query := `DELETE FROM books WHERE id = $1`
-	_, err := s.dbService.GetPool().Exec(ctx, query, bookId)
+	_, err = s.dbService.GetPool().Exec(ctx, query, bookId)
 	if err != nil {
 		if er.HandleDeadlineExceededError(bookService, err) != nil {
 			return er.Wrap(funcName, err)

@@ -23,6 +23,7 @@ type UserService interface {
 	GetAllUsers(ctx context.Context) ([]user.User, error)
 	UpdateUser(ctx context.Context, user user.User, userId int) error
 	DeleteUser(ctx context.Context, userId int) error
+	UserExist(ctx context.Context, userId int) error
 }
 
 // NewUserService creates a new instance of UserServiceStruct, implementing UserService
@@ -118,7 +119,7 @@ func (s *UserServiceStruct) UpdateUser(ctx context.Context, updateUser user.User
 
 	funcName := userService + "UpdateUser,"
 
-	err := s.userExist(ctx, userId)
+	err := s.UserExist(ctx, userId)
 	if err != nil {
 		return er.Wrap(funcName, err)
 	}
@@ -148,7 +149,7 @@ func (s *UserServiceStruct) DeleteUser(ctx context.Context, userId int) error {
 
 	funcName := userService + "DeleteUser,"
 
-	err := s.userExist(ctx, userId)
+	err := s.UserExist(ctx, userId)
 	if err != nil {
 		return er.Wrap(funcName, err)
 	}
@@ -166,9 +167,9 @@ func (s *UserServiceStruct) DeleteUser(ctx context.Context, userId int) error {
 	return nil
 }
 
-// userExist checks if a user with the given ID exists in the database
+// UserExist checks if a user with the given ID exists in the database
 // This ensures that the user to be updated or deleted exists
-func (s *UserServiceStruct) userExist(ctx context.Context, userId int) error {
+func (s *UserServiceStruct) UserExist(ctx context.Context, userId int) error {
 
 	funcName := userService + "userExist,"
 	var userExists bool

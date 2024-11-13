@@ -124,6 +124,11 @@ func (s *BookBorrowStruct) BorrowBook(ctx context.Context, bookId int, userId in
 		return er.New(funcName, message, nil)
 	}
 
+	err = s.userService.UserExist(ctx, userId)
+	if err != nil {
+		return er.Wrap(funcName, err)
+	}
+
 	var bookBorrowed bool
 	query = `SELECT * FROM book_borrows WHERE book_id = $1 AND user_id = $2 AND borrow_date IS NOT NULL AND return_date IS NULL`
 	err = s.dbService.GetPool().QueryRow(ctx, query, bookId, userId).Scan(&bookBorrowed)
