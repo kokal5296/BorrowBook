@@ -131,7 +131,7 @@ go run main.go
 {}
 ```
 
-### Update Book Changing only quantity
+### Update Book: Changing only quantity
 
 **Endpoint:** `PUT /book/:id`
 
