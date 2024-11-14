@@ -22,7 +22,7 @@ go mod tidy
 
 ## Configuration
 
-Create a `.env` file in the root directory of the project and add the following environment variables:
+Modify a `.env` file in the root directory of the project and add the following environment variables:
 
 ```sh
 POSTGRESQL_URI="postgres://<username>:<password>@localhost:<port>/"
